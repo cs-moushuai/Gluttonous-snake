@@ -5,9 +5,8 @@
 
 #include "header.h"
 
-const int ROW = 20, COL = 40;
-
-extern NODE food;
+Snake *snake_head, *snake_end;
+Node food;
 
 void Gotoxy(int x, int y)
 {
@@ -38,7 +37,7 @@ void Map()
             {
                 printf("◎");
             }
-            
+
             else
             {
                 //SetConsoleTextAttribute(handle, 7);
@@ -62,4 +61,9 @@ void Init()
     printf("*              Tip:press 0 to get help              *");
     Gotoxy(20, 9);
     printf("*****************************************************");
+
+    snake_head = (Snake *)malloc(sizeof(Snake));
+    snake_end = (Snake *)malloc(sizeof(Snake));
+    snake_head->next = snake_end;
+    snake_end->next = NULL;
 }

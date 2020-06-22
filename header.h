@@ -2,19 +2,21 @@
 
 //gcc main.c functions.c -o main.exe
 
-typedef struct NODE
+typedef struct Node
 {
     int x, y;
-} NODE;
+} Node;
 
-typedef struct SNAKE
+typedef struct Snake
 {
-    int length;
-    NODE *nodes;
+    int x;
+    int y;
+    Snake *next;
 
-} SNAKE;
+} Snake;
 
-
+#define ROW 20
+#define COL 20*2
 
 void Map();
 void Gotoxy(int x, int y);

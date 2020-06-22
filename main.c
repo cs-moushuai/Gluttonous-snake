@@ -5,11 +5,8 @@
 
 #include "header.h"
 
-extern const int ROW, COL;
 
-SNAKE *snake;
 
-NODE food;
 
 int main(void)
 {
