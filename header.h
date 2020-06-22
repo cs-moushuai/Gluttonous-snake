@@ -1,5 +1,7 @@
 #pragma once
 
+//gcc main.c functions.c -o main.exe
+
 typedef struct NODE
 {
     int x, y;
@@ -15,4 +17,5 @@ typedef struct SNAKE
 
 
 void Map();
-void Goto(int x, int y);
+void Gotoxy(int x, int y);
+void Init();

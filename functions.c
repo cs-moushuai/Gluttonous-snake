@@ -1,10 +1,13 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "header.h"
 
-const int ROW = 20, COL = 20;
+const int ROW = 20, COL = 40;
+
+extern NODE food;
 
 void Gotoxy(int x, int y)
 {
@@ -17,23 +20,46 @@ void Gotoxy(int x, int y)
 
 void Map()
 {
+    //HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    srand((unsigned)time(NULL));
+    food.x = rand() % 18 + 1;
+    food.y = rand() % 18 + 1;
     for (size_t i = 0; i < ROW; i++)
     {
         for (size_t j = 0; j < COL; j++)
         {
-            if (1)
+            if (i == 0 || i == ROW - 1 || j == 0 || j == COL - 1)
             {
-                printf("□");
-            }
-            else
-            {
+                //SetConsoleTextAttribute(handle, 1);
                 printf("■");
             }
+            else if (j == food.x && i == food.y)
+            {
+                printf("◎");
+            }
             
+            else
+            {
+                //SetConsoleTextAttribute(handle, 7);
+                printf("□");
+            }
         }
 
-        Gotoxy(i,0);
-        
+        printf("\n");
     }
-    
+}
+
+void Init()
+{
+    Gotoxy(20, 5);
+    printf("*****************************************************");
+    Gotoxy(20, 6);
+    printf("*            welcome to Gluttonous Snake!           *");
+    Gotoxy(20, 7);
+    printf("*         press 1 to start or press 2 to exit       *");
+    Gotoxy(20, 8);
+    printf("*              Tip:press 0 to get help              *");
+    Gotoxy(20, 9);
+    printf("*****************************************************");
 }
