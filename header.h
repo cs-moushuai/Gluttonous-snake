@@ -11,7 +11,7 @@ typedef struct Snake
 {
     int x;
     int y;
-    Snake *next;
+    struct Snake *next;
 
 } Snake;
 
