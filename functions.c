@@ -22,7 +22,7 @@ void GotoXy(int x, int y)
     SetConsoleCursorPosition(handle, pos);
 }
 
-void DrawMap()
+void InitMap()
 {
     //HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     bool flag = false;
@@ -158,7 +158,7 @@ void RunGame()
     while (1)
     {
         ch = getch();
-        system("cls");
+        // system("cls");
         switch (ch)
         {
         case 72: //上*/
@@ -223,6 +223,8 @@ void NormalGame()
         GiveXySnake(p, &p_prior);
         p_prior = temp;
     }
+    GotoXy(p_prior.x, p_prior.y);
+    printf("□");
 
     if (JudgeEatFood() == true)
     {
@@ -273,6 +275,7 @@ void GiveXySnake(Snake *a, Snake *b)
 
 void GameOver()
 {
+    system("cls");
     Snake *p = snake_head;
     Snake *temp = NULL;
     while (p != NULL)
