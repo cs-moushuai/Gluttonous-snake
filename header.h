@@ -18,6 +18,16 @@ typedef struct Snake
 #define ROW 20
 #define COL 20*2
 
-void Map();
-void Gotoxy(int x, int y);
+void InitMap();
+void DrawSnake();
+void DrawFood();
+void GotoXy(int x, int y);
 void Init();
+void RunGame();
+void NormalGame();
+void HidenCursor();
+void GiveXySnake(Snake *a, Snake *b);
+bool JudgeEatFood();
+void JudgeDeath();
+void GameOver();
+void NewFood();

@@ -5,9 +5,6 @@
 
 #include "header.h"
 
-
-
-
 int main(void)
 {
     char ch;
@@ -16,16 +13,14 @@ int main(void)
     system("color a");
     Init();
 
-    bool flag = false;
-
-    while (flag != true)
+    while (1)
     {
         ch = getch();
 
         switch (ch)
         {
         case '1':
-            flag = true; //1
+            RunGame();
             break;
 
         case '2':
@@ -40,8 +35,6 @@ int main(void)
         }
     }
 
-    system("cls");
-    Map();
     system("pause");
 
     return 0;
