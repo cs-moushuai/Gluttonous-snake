@@ -22,7 +22,8 @@ void InitMap();
 void DrawSnake();
 void DrawFood();
 void GotoXy(int x, int y);
-void Init();
+void InitData();
+void Welcome();
 void RunGame();
 void NormalGame();
 void HidenCursor();
@@ -32,3 +33,7 @@ void JudgeDeath();
 void GameOver();
 void NewFood();
 void DrawScore();
+
+
+
+#define DEBUG

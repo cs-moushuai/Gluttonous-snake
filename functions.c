@@ -106,18 +106,8 @@ void DrawFood()
     printf("◎");
 }
 
-void Init()
+void InitData()
 {
-    GotoXy(20, 5);
-    printf("*****************************************************");
-    GotoXy(20, 6);
-    printf("*            welcome to Gluttonous Snake!           *");
-    GotoXy(20, 7);
-    printf("*         press 1 to start or press 2 to exit       *");
-    GotoXy(20, 8);
-    printf("*              Tip:press 0 to get help              *");
-    GotoXy(20, 9);
-    printf("*****************************************************");
     SetConsoleTitle("Gluttonous Snake");
 
     snake_head = (Snake *)malloc(sizeof(Snake));
@@ -144,6 +134,23 @@ void Init()
     NewFood();
 
     HidenCursor();
+
+}
+
+void Welcome()
+{
+    GotoXy(20, 5);
+    printf("*****************************************************");
+    GotoXy(20, 6);
+    printf("*            welcome to Gluttonous Snake!           *");
+    GotoXy(20, 7);
+    printf("*         press 1 to start or press 2 to exit       *");
+    GotoXy(20, 8);
+    printf("*              Tip:press 0 to get help              *");
+    GotoXy(20, 9);
+    printf("*****************************************************");
+
+    InitData();
 }
 
 void HidenCursor()
@@ -162,14 +169,21 @@ void RunGame()
     char ch;
     system("cls");
     InitMap();
+
+
     while (1)
     {
+        Sleep(500);
         DrawScore();
-        ch = getch();
+
+
+
+
+        //ch = getch();
         // system("cls");
-        switch (ch)
+        /* switch (ch)
         {
-        case 72: //上*/
+        case 72: //上
             if (d_flag != 's')
             {
                 d_flag = 'w';
@@ -195,11 +209,33 @@ void RunGame()
             break;
         case 27: //ESC
             GameOver();
+        } */
+
+        if (GetAsyncKeyState(VK_UP) && d_flag != 's')
+        { //判断键盘输入的如果是↑键，且蛇的方向没有向下，那就进入循环，把蛇的方向的状态改成向上
+            d_flag = 'w';
+        }
+        if (GetAsyncKeyState(VK_DOWN) && d_flag != 'w')
+        { //判断键盘输入的如果是↓键，且蛇的方向没有向上，那就进入循环，把蛇的方向的状态改成向下
+
+            d_flag = 's';
+        }
+        if (GetAsyncKeyState(VK_LEFT) && d_flag != 'd')
+        { //判断键盘输入的如果是左键，且蛇的方向没有向右，那就进入循环，把蛇的方向的状态改成向左
+
+            d_flag = 'a';
+        }
+        if (GetAsyncKeyState(VK_RIGHT) && d_flag != 'a')
+        { //判断键盘输入的如果是右键，且蛇的方向没有向左，那就进入循环，把蛇的方向的状态改成向右
+
+            d_flag = 'd';
+        }
+        if (GetAsyncKeyState(VK_ESCAPE))
+        { //如果键盘输入ESC键，那就状态改成退出
+            GameOver();
         }
 
-
         NormalGame();
-
 
         JudgeDeath();
 
@@ -306,6 +342,32 @@ void GameOver()
         free(p);
         p = temp;
     }
-    system("pause");
-    exit(EXIT_SUCCESS);
+
+    GotoXy(15, 10);
+    printf("***********************************");
+    GotoXy(15, 11);
+    printf("*           Game is over!         *");
+    GotoXy(15, 12);
+    printf("* press y/n to try again or exit! *");
+    GotoXy(15, 13);
+    printf("***********************************");
+
+    char ch;
+
+    while (1)
+    {
+        ch = getch();
+
+        if (ch == 'y' || ch == 'Y')
+        {
+            break;
+        }
+        else if (ch == 'n' || ch == 'N')
+        {
+            system("pause");
+            exit(EXIT_SUCCESS);
+        }
+    }
+    InitData();
+    RunGame();
 }

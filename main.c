@@ -11,7 +11,7 @@ int main(void)
 
     system("cls");
     system("color a");
-    Init();
+    Welcome();
 
     while (1)
     {
