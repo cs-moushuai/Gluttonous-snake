@@ -31,3 +31,4 @@ bool JudgeEatFood();
 void JudgeDeath();
 void GameOver();
 void NewFood();
+void DrawScore();

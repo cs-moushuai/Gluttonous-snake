@@ -10,6 +10,7 @@
 Snake *snake_head, *snake_end;
 Node food;
 HANDLE handle;
+int score = 0;
 
 char d_flag = 'd';
 
@@ -74,6 +75,12 @@ void InitMap()
 
         printf("\n");
     }
+}
+
+void DrawScore()
+{
+    GotoXy(0, 20);
+    printf("************************************score:%d************************************", score);
 }
 
 void DrawSnake()
@@ -157,6 +164,7 @@ void RunGame()
     InitMap();
     while (1)
     {
+        DrawScore();
         ch = getch();
         // system("cls");
         switch (ch)
@@ -188,7 +196,11 @@ void RunGame()
         case 27: //ESC
             GameOver();
         }
+
+
         NormalGame();
+
+
         JudgeDeath();
 
         DrawSnake();
@@ -209,10 +221,10 @@ void NormalGame()
     case 's': //下
         snake_head->y++;
         break;
-    case 'a': //右
+    case 'a': //左
         snake_head->x--;
         break;
-    case 'd': //左
+    case 'd': //右
         snake_head->x++;
         break;
     }
@@ -239,6 +251,8 @@ bool JudgeEatFood()
 {
     if (snake_head->x == food.x && snake_head->y == food.y)
     {
+        score += 20;
+
         NewFood();
 
         return true;
@@ -251,6 +265,14 @@ void JudgeDeath()
     if (snake_head->x == 0 || snake_head->x == COL - 1 || snake_head->y == 0 || snake_head->y == ROW - 1)
     {
         GameOver();
+    }
+
+    for (Snake *p = snake_head->next; p != NULL; p = p->next)
+    {
+        if (p->x == snake_head->x && p->y == snake_head->y)
+        {
+            GameOver();
+        }
     }
 }
 
