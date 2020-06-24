@@ -28,6 +28,7 @@ int main(void)
             break;
 
         case '0': //0
+            Help();
             break;
 
         default:

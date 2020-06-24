@@ -14,6 +14,29 @@ int score = 0;
 
 char d_flag = 'd';
 
+void Help()
+{
+    system("cls");
+
+    GotoXy(16,5);
+    printf("***************************************************************************************");
+    GotoXy(16,6);
+    printf("*                                Gluttonous Snake                                     *");
+    GotoXy(16,7);
+    printf("*          in this game, you can use w s a d or ↑ → ← ↓ to move your snake            *");
+    GotoXy(16,8);
+    printf("*   when your snake get a food, it will lengthen a block and you will get 20 score    *");
+    GotoXy(16,9);
+    printf("*                                  Good lucky!                                        *");
+    GotoXy(16,10);
+    printf("***************************************************************************************");
+
+    Sleep(5000);
+
+    system("cls");
+    DrawWelcome();
+}
+
 void GotoXy(int x, int y)
 {
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -139,6 +162,12 @@ void InitData()
 
 void Welcome()
 {
+    DrawWelcome();
+    InitData();
+}
+
+void DrawWelcome()
+{
     GotoXy(20, 5);
     printf("*****************************************************");
     GotoXy(20, 6);
@@ -150,7 +179,6 @@ void Welcome()
     GotoXy(20, 9);
     printf("*****************************************************");
 
-    InitData();
 }
 
 void HidenCursor()

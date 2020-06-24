@@ -18,12 +18,14 @@ typedef struct Snake
 #define ROW 20
 #define COL 20*2
 
+void Help();
 void InitMap();
 void DrawSnake();
 void DrawFood();
 void GotoXy(int x, int y);
 void InitData();
 void Welcome();
+void DrawWelcome();
 void RunGame();
 void NormalGame();
 void HidenCursor();
