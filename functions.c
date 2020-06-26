@@ -18,20 +18,38 @@ void Help()
 {
     system("cls");
 
-    GotoXy(16,5);
+    GotoXy(16, 5);
     printf("***************************************************************************************");
-    GotoXy(16,6);
+    GotoXy(16, 6);
+    printf("*                                                                                     *");
+    GotoXy(16, 7);
     printf("*                                Gluttonous Snake                                     *");
-    GotoXy(16,7);
-    printf("*          in this game, you can use w s a d or ↑ → ← ↓ to move your snake            *");
-    GotoXy(16,8);
-    printf("*   when your snake get a food, it will lengthen a block and you will get 20 score    *");
-    GotoXy(16,9);
+    GotoXy(16, 8);
+    printf("*                                                                                     *");
+    GotoXy(16, 9);
+    printf("*              in this game, you can use ↑ → ← ↓ to control your snake                *");
+    GotoXy(16, 10);
+    printf("*                                                                                     *");
+    GotoXy(16, 11);
+    printf("*   when your snake get a food, it will lengthen a block and you will get 20 scores   *");
+    GotoXy(16, 12);
+    printf("*                                                                                     *");
+    GotoXy(16, 13);
+    printf("*             when your snake eat itself or crash wall, game will be over!            *");
+    GotoXy(16, 14);
+    printf("*                                                                                     *");
+    GotoXy(16, 15);
+    printf("*                       then you can choose y/n to new a game                         *");
+    GotoXy(16, 16);
+    printf("*                                                                                     *");
+    GotoXy(16, 17);
     printf("*                                  Good lucky!                                        *");
-    GotoXy(16,10);
+    GotoXy(16, 18);
+    printf("*                                                                                     *");
+    GotoXy(16, 19);
     printf("***************************************************************************************");
 
-    Sleep(5000);
+    Sleep(9000);
 
     system("cls");
     DrawWelcome();
@@ -129,9 +147,21 @@ void DrawFood()
     printf("◎");
 }
 
+void NewNode(int x, int y)
+{
+    snake_end->next = (Snake *)malloc(sizeof(Snake));
+    snake_end = snake_end->next;
+    snake_end->x = x;
+    snake_end->y = y;
+
+    snake_end->next = NULL;
+}
+
 void InitData()
 {
     SetConsoleTitle("Gluttonous Snake");
+
+    score = 0;
 
     snake_head = (Snake *)malloc(sizeof(Snake));
     snake_end = (Snake *)malloc(sizeof(Snake));
@@ -142,22 +172,13 @@ void InitData()
 
     snake_head->next = snake_end;
 
-    snake_end->next = (Snake *)malloc(sizeof(Snake));
-    snake_end = snake_end->next;
-    snake_end->x = 11;
-    snake_end->y = 10;
+    NewNode(11, 10);
 
-    snake_end->next = (Snake *)malloc(sizeof(Snake));
-    snake_end = snake_end->next;
-    snake_end->x = 10;
-    snake_end->y = 10;
-
-    snake_end->next = NULL;
+    NewNode(10, 10);
 
     NewFood();
 
     HidenCursor();
-
 }
 
 void Welcome()
@@ -178,7 +199,6 @@ void DrawWelcome()
     printf("*              Tip:press 0 to get help              *");
     GotoXy(20, 9);
     printf("*****************************************************");
-
 }
 
 void HidenCursor()
@@ -198,14 +218,10 @@ void RunGame()
     system("cls");
     InitMap();
 
-
     while (1)
     {
         Sleep(500);
         DrawScore();
-
-
-
 
         //ch = getch();
         // system("cls");
@@ -359,6 +375,82 @@ void GiveXySnake(Snake *a, Snake *b)
     a->y = b->y;
 }
 
+void PrintGrade()
+{
+    FILE *fp;
+    if (!(fp = fopen("Grade.txt", "a+")))
+    {
+        printf("Failure!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int history_grade[50] = {0};
+    int max = 0;
+    size_t i = 0;
+
+    while (fscanf(fp, "%d", &history_grade[i]) && !feof(fp))
+    {
+        ++i;
+    }
+
+    for (i = 0; i < 50 - 1; i++)
+    {
+        max = i;
+        for (size_t j = i + 1; j < 50; j++)
+        {
+            if (history_grade[j] > history_grade[max])
+            {
+                max = j;
+            }
+        }
+        SwapInt(&history_grade[i], &history_grade[max]);
+    }
+
+    fprintf(fp, "%d\n", score);
+
+    system("cls");
+    GotoXy(16, 5);
+    printf("***************************************************************************************");
+    GotoXy(16, 6);
+    printf("*                                                                                     *");
+    GotoXy(16, 7);
+    printf("*                                Gluttonous Snake                                     *");
+    GotoXy(16, 8);
+    printf("*                                                                                     *");
+    GotoXy(16, 9);
+    printf("*                                History   Grades                                     *");
+    GotoXy(16, 10);
+    printf("*                                                                                     *");
+    GotoXy(16, 11);
+    printf("*                                      1.%d                                           *", history_grade[0]);
+    GotoXy(16, 12);
+    printf("*                                                                                     *");
+    GotoXy(16, 13);
+    printf("*                                      2.%d                                           *", history_grade[1]);
+    GotoXy(16, 14);
+    printf("*                                                                                     *");
+    GotoXy(16, 15);
+    printf("*                                      3.%d                                           *", history_grade[2]);
+    GotoXy(16, 16);
+    printf("*                                                                                     *");
+    GotoXy(16, 17);
+    printf("*                             your score this game: %d                                *", score);
+    GotoXy(16, 18);
+    printf("*                                                                                     *");
+    GotoXy(16, 19);
+    printf("***************************************************************************************");
+
+    fclose(fp);
+}
+
+void SwapInt(int *a, int *b)
+{
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void GameOver()
 {
     system("cls");
@@ -388,14 +480,14 @@ void GameOver()
 
         if (ch == 'y' || ch == 'Y')
         {
-            break;
+            InitData();
+            RunGame();
         }
         else if (ch == 'n' || ch == 'N')
         {
+            PrintGrade();
             system("pause");
             exit(EXIT_SUCCESS);
         }
     }
-    InitData();
-    RunGame();
 }

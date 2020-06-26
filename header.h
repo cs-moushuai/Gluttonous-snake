@@ -35,6 +35,9 @@ void JudgeDeath();
 void GameOver();
 void NewFood();
 void DrawScore();
+void NewNode();
+void PrintGrade();
+void SwapInt(int *a,int *b);
 
 
 
