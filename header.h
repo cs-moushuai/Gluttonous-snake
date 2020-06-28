@@ -22,6 +22,7 @@ void Help();
 void InitMap();
 void DrawSnake();
 void DrawFood();
+void DrawSpeed();
 void GotoXy(int x, int y);
 void InitData();
 void Welcome();
@@ -38,6 +39,7 @@ void DrawScore();
 void NewNode();
 void PrintGrade();
 void SwapInt(int *a,int *b);
+void PlayMusic();
 
 
 

@@ -4,13 +4,17 @@
 #include <time.h>
 #include <stdbool.h>
 #include <conio.h>
+#include <mmsystem.h>
 
 #include "header.h"
+
+#pragma comment(lib, "winmm.lib")
 
 Snake *snake_head, *snake_end;
 Node food;
 HANDLE handle;
 int score = 0;
+int speed = 500;
 
 char d_flag = 'd';
 
@@ -124,6 +128,12 @@ void DrawScore()
     printf("************************************score:%d************************************", score);
 }
 
+void DrawSpeed()
+{
+    GotoXy(0, 21);
+    printf("***********************************speed:%d***********************************", speed);
+}
+
 void DrawSnake()
 {
     for (Snake *p = snake_head; p != NULL; p = p->next)
@@ -157,11 +167,18 @@ void NewNode(int x, int y)
     snake_end->next = NULL;
 }
 
+void PlayMusic()
+{
+    mciSendString(TEXT("open yinyue.mp3 alias BGM"), 0, 0, 0);
+    mciSendString(TEXT("play BGM repeat"), 0, 0, 0);
+}
+
 void InitData()
 {
     SetConsoleTitle("Gluttonous Snake");
 
     score = 0;
+    speed = 500;
 
     snake_head = (Snake *)malloc(sizeof(Snake));
     snake_end = (Snake *)malloc(sizeof(Snake));
@@ -179,6 +196,7 @@ void InitData()
     NewFood();
 
     HidenCursor();
+    PlayMusic();
 }
 
 void Welcome()
@@ -214,14 +232,15 @@ void HidenCursor()
 
 void RunGame()
 {
-    char ch;
+    //char ch;
     system("cls");
     InitMap();
 
     while (1)
     {
-        Sleep(500);
+        Sleep(speed);
         DrawScore();
+        DrawSpeed();
 
         //ch = getch();
         // system("cls");
@@ -335,6 +354,11 @@ bool JudgeEatFood()
 
         NewFood();
 
+        if (speed >= 150)
+        {
+            speed -= 50;
+        }
+
         return true;
     }
     return false;
@@ -441,6 +465,7 @@ void PrintGrade()
     printf("***************************************************************************************");
 
     fclose(fp);
+    system("pause");
 }
 
 void SwapInt(int *a, int *b)
@@ -480,13 +505,13 @@ void GameOver()
 
         if (ch == 'y' || ch == 'Y')
         {
+            PrintGrade();
             InitData();
             RunGame();
         }
         else if (ch == 'n' || ch == 'N')
         {
             PrintGrade();
-            system("pause");
             exit(EXIT_SUCCESS);
         }
     }
