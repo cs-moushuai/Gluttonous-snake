@@ -188,6 +188,7 @@ void InitData()
 
     score = 0;
     speed = 500;
+    d_flag = 'd';
 
     snake_head = (Snake *)malloc(sizeof(Snake));
     snake_end = (Snake *)malloc(sizeof(Snake));
@@ -219,12 +220,24 @@ void DrawWelcome()
     GotoXy(20, 5);
     printf("*****************************************************");
     GotoXy(20, 6);
-    printf("*            welcome to Gluttonous Snake!           *");
+    printf("*                                                   *");
     GotoXy(20, 7);
-    printf("*         press 1 to start or press 2 to exit       *");
+    printf("*            welcome to Gluttonous Snake!           *");
     GotoXy(20, 8);
-    printf("*              Tip:press 0 to get help              *");
+    printf("*                                                   *");
     GotoXy(20, 9);
+    printf("*         press 1 to start or press 2 to exit       *");
+    GotoXy(20, 10);
+    printf("*                                                   *");
+    GotoXy(20, 11);
+    printf("*              Tip:press 0 to get help              *");
+    GotoXy(20, 12);
+    printf("*                                                   *");
+    GotoXy(20, 13);
+    printf("*                                 author:wangshuai  *");
+    GotoXy(20, 14);
+    printf("*                                                   *");
+    GotoXy(20, 15);
     printf("*****************************************************");
 }
 
@@ -321,6 +334,7 @@ void NormalGame()
     Snake *p = snake_head;
     Snake temp;
     Snake p_prior = *p;
+
     switch (d_flag)
     {
     case 'w': //上*/
