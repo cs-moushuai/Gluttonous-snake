@@ -39,7 +39,7 @@ void DrawScore();
 void NewNode();
 void PrintGrade();
 void SwapInt(int *a,int *b);
-void PlayMusic();
+// void PlayMusic();
 
 
 

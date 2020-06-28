@@ -4,11 +4,11 @@
 #include <time.h>
 #include <stdbool.h>
 #include <conio.h>
-#include <mmsystem.h>
+// #include <mmsystem.h>
 
 #include "header.h"
 
-#pragma comment(lib, "winmm.lib")
+// #pragma comment(lib, "winmm.lib")
 
 Snake *snake_head, *snake_end;
 Node food;
@@ -39,21 +39,30 @@ void Help()
     GotoXy(16, 12);
     printf("*                                                                                     *");
     GotoXy(16, 13);
-    printf("*             when your snake eat itself or crash wall, game will be over!            *");
+    printf("*                     and you will get faster speed untill 150                        *");
     GotoXy(16, 14);
     printf("*                                                                                     *");
     GotoXy(16, 15);
-    printf("*                       then you can choose y/n to new a game                         *");
+    printf("*             when your snake eat itself or crash wall, game will be over!            *");
     GotoXy(16, 16);
     printf("*                                                                                     *");
     GotoXy(16, 17);
-    printf("*                                  Good lucky!                                        *");
+    printf("*                       then you can choose y/n to new a game                         *");
     GotoXy(16, 18);
     printf("*                                                                                     *");
     GotoXy(16, 19);
+    printf("*                            you can use ESC to exit the game                         *");
+    GotoXy(16, 20);
+    printf("*                                                                                     *");
+    GotoXy(16, 21);
+    printf("*                                  Good lucky!                                        *");
+    GotoXy(16, 22);
+    printf("*                                                                                     *");
+    GotoXy(16, 23);
     printf("***************************************************************************************");
 
-    Sleep(9000);
+    GotoXy(16, 24);
+    system("pause");
 
     system("cls");
     DrawWelcome();
@@ -167,11 +176,11 @@ void NewNode(int x, int y)
     snake_end->next = NULL;
 }
 
-void PlayMusic()
+/* void PlayMusic()
 {
     mciSendString(TEXT("open yinyue.mp3 alias BGM"), 0, 0, 0);
     mciSendString(TEXT("play BGM repeat"), 0, 0, 0);
-}
+} */
 
 void InitData()
 {
@@ -196,7 +205,7 @@ void InitData()
     NewFood();
 
     HidenCursor();
-    PlayMusic();
+    // PlayMusic();
 }
 
 void Welcome()
@@ -354,7 +363,7 @@ bool JudgeEatFood()
 
         NewFood();
 
-        if (speed >= 150)
+        if (speed >= 200)
         {
             speed -= 50;
         }
@@ -465,6 +474,7 @@ void PrintGrade()
     printf("***************************************************************************************");
 
     fclose(fp);
+    GotoXy(16, 20);
     system("pause");
 }
 
