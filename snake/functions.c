@@ -70,7 +70,7 @@ void Help()
 
 void GotoXy(int x, int y)
 {
-    handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    handle = GetStdHandle(STD_OUTPUT_HANDLE);//Real-time access to handle
     COORD pos;
     pos.X = x;
     pos.Y = y;
@@ -512,6 +512,7 @@ void GameOver()
         p = temp;
     }
 
+
     GotoXy(15, 10);
     printf("***********************************");
     GotoXy(15, 11);
@@ -536,6 +537,7 @@ void GameOver()
         else if (ch == 'n' || ch == 'N')
         {
             PrintGrade();
+            CloseHandle(handle);
             exit(EXIT_SUCCESS);
         }
     }
